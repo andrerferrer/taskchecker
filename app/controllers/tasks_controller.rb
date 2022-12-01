@@ -18,7 +18,8 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @team_members = User.joins(:team_members).where( team_members: {team_id: @team.id, admin: false})
+    @team_members = @team.users.where(team_members: {admin: false})
+    # we can refactor this with a Scope -> https://github.com/andrerferrer/active-record-scope-demo#goal
     authorize @task
   end
 
