@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @team_members = TeamMember.where(team_id: @team.id, admin: false).map(&:user)
+    @team_members = User.joins(:team_members).where( team_members: {team_id: @team.id, admin: false})
     authorize @task
   end
 
